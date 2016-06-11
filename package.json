@@ -1,0 +1,38 @@
+{
+  "name": "sla4oai",
+  "version": "0.0.1",
+  "description": "SLA for Open API Initiative Library",
+  "keywords": [
+    "oai",
+    "sla",
+    "swagger"
+  ],
+  "homepage": "https://bitbucket.org/sla4oai/sla4oai-lib",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:sla4oai/sla4oai-lib.git"
+  },
+  "bugs": {
+    "url": "https://bitbucket.org/sla4oai/sla4oai-lib/issues"
+  },
+  "license": "MIT",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "main": "./lib",
+  "dependencies": {
+    "express": "^4.13.4"
+  },
+  "devDependencies": {
+  },
+  "engines": {
+    "node": "5.x",
+    "npm": "3.x"
+  },
+  "scripts": {
+    "eslint": "eslint lib/**/*.js"
+  }
+}
