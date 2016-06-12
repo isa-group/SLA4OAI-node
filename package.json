@@ -27,12 +27,15 @@
     "express": "^4.13.4"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
   },
   "engines": {
     "node": "5.x",
     "npm": "3.x"
   },
   "scripts": {
-    "eslint": "eslint lib/**/*.js"
+    "eslint": "eslint lib/**/*.js",
+    "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js test/**/*.test.js"
   }
 }
