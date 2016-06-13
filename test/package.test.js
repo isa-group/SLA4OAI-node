@@ -2,7 +2,7 @@
 
 var sla = require('..');
 
-describe('sla', function () {
+describe('sla package', function () {
     it('should expose singleton sla', function () {
         expect(sla).to.be.an('object');
     });
