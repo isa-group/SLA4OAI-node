@@ -1,6 +1,6 @@
 /* global describe, it, expect */
 
-var sla = require('../../lib');
+var slaManager = require('../../lib');
 
 describe('reporter', function () {
     describe('#configure', function () {
@@ -14,14 +14,14 @@ describe('reporter', function () {
                 environment: 'qa'
             };
 
-            sla.reporter.configure(options);
+            slaManager.reporter.configure(options);
 
-            expect(sla.reporter._autoReport).to.equal(options.autoReport);
-            expect(sla.reporter._aggregate).to.equal(options.aggregate);
-            expect(sla.reporter._aggregationPeriod).to.equal(options.aggregationPeriod);
-            expect(sla.reporter._autoPopulatedMetrics).to.equal(options.autoPopulatedMetrics);
-            expect(sla.reporter._cluster).to.equal(options.cluster);
-            expect(sla.reporter._environment).to.equal(options.environment);
+            expect(slaManager.reporter._autoReport).to.equal(options.autoReport);
+            expect(slaManager.reporter._aggregate).to.equal(options.aggregate);
+            expect(slaManager.reporter._aggregationPeriod).to.equal(options.aggregationPeriod);
+            expect(slaManager.reporter._autoPopulatedMetrics).to.equal(options.autoPopulatedMetrics);
+            expect(slaManager.reporter._cluster).to.equal(options.cluster);
+            expect(slaManager.reporter._environment).to.equal(options.environment);
         });
     });
 });

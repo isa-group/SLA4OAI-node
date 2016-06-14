@@ -1,18 +1,18 @@
 /* global describe, it, expect */
 
-var sla = require('..');
+var slaManager = require('..');
 
-describe('sla package', function () {
-    it('should expose singleton sla', function () {
-        expect(sla).to.be.an('object');
+describe('sla4oai package', function () {
+    it('should expose singleton slaManager', function () {
+        expect(slaManager).to.be.an('object');
     });
-    it('sla should expose "scopeResolver"', function () {
-        expect(sla.scopeResolver).to.be.an('object');
+    it('SlaManager should expose "scopeResolver"', function () {
+        expect(slaManager.scopeResolver).to.be.an('object');
     });
-    it('sla should expose "bouncer"', function () {
-        expect(sla.bouncer).to.be.an('object');
+    it('SlaManager should expose "bouncer"', function () {
+        expect(slaManager.bouncer).to.be.an('object');
     });
-    it('sla should expose "reporter"', function () {
-        expect(sla.reporter).to.be.an('object');
+    it('SlaManager should expose "reporter"', function () {
+        expect(slaManager.reporter).to.be.an('object');
     });
 });

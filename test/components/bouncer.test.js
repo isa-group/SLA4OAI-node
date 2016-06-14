@@ -1,6 +1,6 @@
 /* global describe, it, expect */
 
-var sla = require('../../lib');
+var slaManager = require('../../lib');
 
 describe('bouncer', function () {
     describe('#configure', function () {
@@ -9,9 +9,9 @@ describe('bouncer', function () {
                 environment: 'qa'
             };
 
-            sla.bouncer.configure(options);
+            slaManager.bouncer.configure(options);
 
-            expect(sla.bouncer._environment).to.equal(options.environment);
+            expect(slaManager.bouncer._environment).to.equal(options.environment);
         });
     });
 });

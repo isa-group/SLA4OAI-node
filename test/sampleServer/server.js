@@ -1,4 +1,4 @@
-var sla = require('../../lib');
+var slaManager = require('../../lib');
 var express = require('express');
 var app = express();
 
@@ -22,7 +22,7 @@ var monitorConnection = {
 	url: 'http://monitor.oai.governify.io/api/v1/'
 };
 
-sla.register(app, supervisorConnection, monitorConnection);
+slaManager.register(app, supervisorConnection, monitorConnection);
 
 app.get('/pets', function (req, res) {
     res.status(200).json(pets);
