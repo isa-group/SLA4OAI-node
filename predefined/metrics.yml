@@ -1,0 +1,16 @@
+ResponseTimeMs:
+  type: "double"
+  unit: "ms"
+  description: "Response time in miliseconds"
+requestBody: 
+  type: "string"
+  description: "The body of the request"
+responseHeaders: 
+  type: "string"
+  description: "The header of the response"
+responseBody: 
+  type: "string"
+  description: "The body of the response"
+userAgent: 
+  type: "string"
+  description: "The user-agent attached to the request"
