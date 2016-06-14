@@ -15,11 +15,11 @@ var pets = [
 ];
 
 var supervisorConnection = {
-	url: 'http://supervisor.oai.governify.io/api/v1'
+    url: 'http://supervisor.oai.governify.io/api/v1'
 };
 
 var monitorConnection = {
-	url: 'http://monitor.oai.governify.io/api/v1/'
+    url: 'http://monitor.oai.governify.io/api/v1/'
 };
 
 slaManager.register(app, supervisorConnection, monitorConnection);
