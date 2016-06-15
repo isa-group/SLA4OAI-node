@@ -22,7 +22,13 @@ var monitorConnection = {
     url: 'http://monitor.oai.governify.io/api/v1/'
 };
 
+var scopeResolverOptions = {
+    oauthProvider: 'Google'
+};
+
 slaManager.register(app, supervisorConnection, monitorConnection);
+
+slaManager.scopeResolver.configure(scopeResolverOptions);
 
 app.get('/pets', function (req, res) {
     res.status(200).json(pets);
