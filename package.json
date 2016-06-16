@@ -24,7 +24,8 @@
   ],
   "main": "./lib",
   "dependencies": {
-    "express": "^4.13.4"
+    "express": "^4.13.4",
+    "passport-google-oauth": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^3.5.0",
