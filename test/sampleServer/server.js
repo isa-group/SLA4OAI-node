@@ -23,7 +23,7 @@ var monitorConnection = {
 };
 
 var scopeResolverOptions = {
-    oauthProvider: 'windowsLive',
+    oauthProvider: 'github',
     config: {
         google: {
             clientId: '323051689948-tcmek8pmu3jmof2clamm01imq11vc8i5.apps.googleusercontent.com',
@@ -39,6 +39,11 @@ var scopeResolverOptions = {
             clientId: '000000004C177F07',
             clientSecret: 'E93it0p8id5uRWlFvM8o9QwSpmIO-xaT',
             callbackURL: 'https://library-resource.herokuapp.com/oauth2/windowslive/callback'
+        },
+        github: {
+            clientId: '75313d883774bbcdd1d5',
+            clientSecret: '526308d41d59715df7e69df3de52bc9a4a6a9b0f',
+            callbackURL: 'https://library-resource.herokuapp.com/oauth2/github/callback'
         }
     }
 };
