@@ -23,7 +23,12 @@ var monitorConnection = {
 };
 
 var scopeResolverOptions = {
-    oauthProvider: 'Google'
+    oauthProvider: 'Google',
+    oauthConfig: {
+        clientId: '323051689948-tcmek8pmu3jmof2clamm01imq11vc8i5.apps.googleusercontent.com',
+        clientSecret: 'nCDDfAjsJLLp2zazsMYSFgUD',
+        callbackURL: 'http://localhost:5000/oauth2/google/callback'
+    }
 };
 
 slaManager.register(app, supervisorConnection, monitorConnection);
