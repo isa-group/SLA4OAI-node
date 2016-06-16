@@ -23,11 +23,18 @@ var monitorConnection = {
 };
 
 var scopeResolverOptions = {
-    oauthProvider: 'Google',
-    oauthConfig: {
-        clientId: '323051689948-tcmek8pmu3jmof2clamm01imq11vc8i5.apps.googleusercontent.com',
-        clientSecret: 'nCDDfAjsJLLp2zazsMYSFgUD',
-        callbackURL: 'http://localhost:5000/oauth2/google/callback'
+    oauthProvider: 'google',
+    config: {
+        google: {
+            clientId: '323051689948-tcmek8pmu3jmof2clamm01imq11vc8i5.apps.googleusercontent.com',
+            clientSecret: 'nCDDfAjsJLLp2zazsMYSFgUD',
+            callbackURL: 'https://library-resource.herokuapp.com/oauth2/google/callback'
+        },
+        facebook: {
+            clientId: '181024012249068',
+            clientSecret: '5bee91e598fd01a64de44cd74e285d7a',
+            callbackURL: 'https://library-resource.herokuapp.com/oauth2/facebook/callback'
+        }
     }
 };
 
