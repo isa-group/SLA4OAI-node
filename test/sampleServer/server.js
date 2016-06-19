@@ -52,6 +52,19 @@ slaManager.register(app, supervisorConnection, monitorConnection);
 
 slaManager.scopeResolver.configure(scopeResolverOptions);
 
+/*
+// Bouncer Extensions
+slaManager.bouncer.needChecking = function (req) {
+    return true;
+}
+
+slaManager.bouncer.decline = function (req, res, next, supervisorPayload) {
+    res.status(403).json({
+        message: 'SLA Violation: ' + supervisorPayload.reason
+    }).end();
+}
+*/
+
 app.get('/pets', function (req, res) {
     res.status(200).json(pets);
 });
