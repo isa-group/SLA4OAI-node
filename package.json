@@ -41,6 +41,6 @@
   "scripts": {
     "eslint": "eslint lib/**/*.js test/**/*.js",
     "test": "node_modules/.bin/mocha --reporter spec --require test/bootstrap/node test/*.test.js test/**/*.test.js",
-    "server": "node test/sampleServer/server.js"
+    "sampleserver": "nodemon test/sampleServer/server.js"
   }
 }
