@@ -23,7 +23,7 @@
     }
   ],
   "main": "./lib",
-  "dependencies": {
+  "dependencies": {    
     "express": "^4.13.4",
     "passport-facebook": "^2.1.1",
     "passport-github2": "^0.1.10",
@@ -32,6 +32,7 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "chai-connect-middleware": "^0.3.1",
     "mocha": "^2.5.3"
   },
   "engines": {
