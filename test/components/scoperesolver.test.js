@@ -7,7 +7,7 @@ describe('scopeResolver', function () {
     describe('configure', function () {
         it('options parameter is parsed correctly', function () {
             var options = {
-                oauthProvider: 'google',
+                defaultOAuthProvider: 'google',
                 config: {
                     google: {
                         clientId: '6076-d1m.apps.googleusercontent.com',
@@ -19,7 +19,7 @@ describe('scopeResolver', function () {
 
             scopeResolver.configure(options);
 
-            expect(scopeResolver._oauthProvider).to.equal(options.oauthProvider);
+            expect(scopeResolver._defaultOAuthProvider).to.equal(options.defaultOAuthProvider);
             expect(scopeResolver._config).to.equal(options.config);
         });
     });
@@ -106,7 +106,7 @@ describe('scopeResolver', function () {
             }
         };
         before(function (done) {
-            scopeResolver.getAccountName = function (token, callback) {
+            scopeResolver.getAccountName = function (oauthProvider, token, callback) {
                 if (token === actualToken) {
                     callback(null, email);
                 }
