@@ -1,6 +1,12 @@
-var slaManager = require('../../lib');
 var express = require('express');
+var bodyParser = require('body-parser');
+
+var slaManager = require('../../lib');
+
 var app = express();
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 
 var port = 3000;
 var pets = [
@@ -56,16 +62,26 @@ slaManager.scopeResolver.configure(scopeResolverOptions);
 // Bouncer Extensions
 slaManager.bouncer.needChecking = function (req) {
     return true;
-}
+};
 
 slaManager.bouncer.decline = function (req, res, next, supervisorPayload) {
     res.status(403).json({
         message: 'SLA Violation: ' + supervisorPayload.reason
     }).end();
-}
-*/
+};
 
+
+slaManager.bouncer.resolveMetrics = function (requestedMetrics, req) {
+    return {
+        nameLegth: 12
+    };
+};
+*/
 app.get('/pets', function (req, res) {
+    res.status(200).json(pets);
+});
+
+app.post('/pets', function (req, res) {
     res.status(200).json(pets);
 });
 

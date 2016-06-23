@@ -1,7 +1,10 @@
-ResponseTimeMs:
+responseTime:
   type: "double"
   unit: "ms"
   description: "Response time in miliseconds"
+requestHeaders: 
+  type: "string"
+  description: "The header of the request"
 requestBody: 
   type: "string"
   description: "The body of the request"
