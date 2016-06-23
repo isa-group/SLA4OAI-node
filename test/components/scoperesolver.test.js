@@ -52,9 +52,9 @@ describe('scopeResolver', function () {
                 account: 'ahmed@icinetic.com',
                 tenant: 'icinetic'
             },
-            requestedPayload: {
-                reportType: '/type'
-            }
+            requestedMetrics: [
+                'reportType'
+            ]
         };
 
 
@@ -88,7 +88,7 @@ describe('scopeResolver', function () {
             expect(request.sla).to.be.an('Object');
             expect(request.sla.agreement).to.equal(tenantsResult.sla);
             expect(request.sla.scope).to.equal(tenantsResult.scope);
-            expect(request.sla.requestedPayload).to.equal(tenantsResult.requestedPayload);
+            expect(request.sla.requestedMetrics).to.equal(tenantsResult.requestedMetrics);
         });
     });
     describe('middleware with bearer token', function () {
@@ -101,9 +101,9 @@ describe('scopeResolver', function () {
                 account: email,
                 tenant: 'icinetic'
             },
-            requestedPayload: {
-                reportType: '/type'
-            }
+            requestedMetrics: [
+                'reportType'
+            ]
         };
         before(function (done) {
             scopeResolver.getAccountName = function (oauthProvider, token, callback) {
@@ -174,7 +174,7 @@ describe('scopeResolver', function () {
                 expect(request2.sla).to.be.an('Object');
                 expect(request2.sla.agreement).to.equal(tenantsResult2.sla);
                 expect(request2.sla.scope).to.equal(tenantsResult2.scope);
-                expect(request2.sla.requestedPayload).to.equal(tenantsResult2.requestedPayload);
+                expect(request2.sla.requestedMetrics).to.equal(tenantsResult2.requestedMetrics);
             });
         });
     });

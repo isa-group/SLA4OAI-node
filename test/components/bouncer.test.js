@@ -28,9 +28,9 @@ describe('bouncer', function () {
                 account: 'ahmed@icinetic.com',
                 tenant: 'icinetic'
             },
-            requestedPayload: {
-                reportType: '/type'
-            }
+            requestedMetrics: [
+                'reportType'
+            ]
         };
         before(function (done) {
             bouncer._environment = environment;
