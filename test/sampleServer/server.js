@@ -25,7 +25,7 @@ var supervisorConnection = {
 };
 
 var monitorConnection = {
-    url: 'http://monitor.oai.governify.io/api/v1/'
+    url: 'http://monitor.oai.governify.io/api/v1'
 };
 
 var scopeResolverOptions = {
