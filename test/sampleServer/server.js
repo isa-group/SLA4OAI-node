@@ -54,9 +54,15 @@ var scopeResolverOptions = {
     }
 };
 
+var reporterOptions = {
+    autoReport: false
+};
+
 slaManager.register(app, supervisorConnection, monitorConnection);
 
 slaManager.scopeResolver.configure(scopeResolverOptions);
+
+slaManager.reporter.configure(reporterOptions);
 
 /*
 // Bouncer Extensions
@@ -83,6 +89,7 @@ app.get('/pets', function (req, res) {
 
 app.post('/pets', function (req, res) {
     res.status(200).json(pets);
+    slaManager.reporter.reportMetrics();
 });
 
 app.listen(port, function () {
