@@ -84,6 +84,7 @@ slaManager.bouncer.resolveMetrics = function (requestedMetrics, req) {
 };
 */
 app.get('/pets', function (req, res) {
+    slaManager.reporter.setMetric(req, "animalTypes", pets.length);
     res.status(200).json(pets);
 });
 
