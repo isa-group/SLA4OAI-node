@@ -55,7 +55,11 @@ var scopeResolverOptions = {
 };
 
 var reporterOptions = {
-    autoReport: false
+    autoReport: true,
+    aggregate: true,
+    aggregationPeriod: 15000,
+    cluster: 'cl1.acme.com',
+    environment: 'qa'
 };
 
 slaManager.register(app, supervisorConnection, monitorConnection);
@@ -90,7 +94,7 @@ app.get('/pets', function (req, res) {
 
 app.post('/pets', function (req, res) {
     res.status(200).json(pets);
-    slaManager.reporter.reportMetrics();
+    //slaManager.reporter.reportMetrics();
 });
 
 app.listen(port, function () {
