@@ -56,8 +56,8 @@ var scopeResolverOptions = {
 
 var reporterOptions = {
     autoReport: true,
-    aggregate: true,
-    aggregationPeriod: 15000,
+    //aggregate: true,
+    //aggregationPeriod: 15000,
     cluster: 'cl1.acme.com',
     environment: 'qa'
 };
@@ -86,7 +86,19 @@ slaManager.bouncer.resolveMetrics = function (requestedMetrics, req) {
         nameLegth: 12
     };
 };
+
+slaManager.reporter.preCalculateMetrics = function (requestedMetrics, req, next) {
+    req.sla.metrics["x-preCalculateMetrics"] = "pre";
+    next();
+};
+
+slaManager.reporter.postCalculateMetrics = function (requestedMetrics, req, res, next) {
+    req.sla.metrics["x-postCalculateMetrics"] = "post";
+    next();
+};
+
 */
+
 app.get('/pets', function (req, res) {
     slaManager.reporter.setMetric(req, "animalTypes", pets.length);
     res.status(200).json(pets);
