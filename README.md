@@ -131,6 +131,7 @@ slaManager.scopeResolver.getAccountScope('account', 'john@tenant.com', function 
 
 ### OAuth Providers
 Using the powerful PassportJS framework and family of plugins **SLA4OAI** can be configured to support the following providers:
+
 - [Google](https://console.developers.google.com)
 - [Facebook](https://developers.facebook.com)
 - [WindowsLive](https://account.live.com/developers/applications/index)
