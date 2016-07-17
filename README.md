@@ -136,3 +136,132 @@ Using the powerful PassportJS framework and family of plugins **SLA4OAI** can be
 - [Facebook](https://developers.facebook.com)
 - [WindowsLive](https://account.live.com/developers/applications/index)
 - [Github](https://github.com/settings/developers)
+
+## 3. Bouncer
+
+### configure
+Use this method to set the configuration parameters of the Bouncer.
+
+#### Configuration parameters:
+
+| Name            | Type        | Description          |
+|:--------------- |:----------- |:-------------------- |
+| environment     | `string`    | The deploying environment (devel, qa, or production). |
+
+**Example:**
+
+```
+var options = {
+	environment: 'qa'
+};
+slaManager.bouncer.configure(options);
+```
+
+### needChecking
+By default all incoming requests are verified by SLA Check, but you can customize this behaviour and specify which requests need checking.
+
+**Example:**
+
+```
+slaManager.bouncer.needChecking = function(req) {
+    if (startsWith(req.originalUrl, '/api/')) {    
+        return true;
+    }
+    return false;
+}
+```
+
+### decline
+By default, bouncer declines all not accepted requested with status code `403` and the body that cames from the Supervisor. But you can customize the decline response message.
+
+**Example:**
+
+```
+slaManager.bouncer.decline = function(req, res, next, supervisorPayload) {
+    if(supervisorPayload.reason === 'Too many requests') {
+        res.status(429).json(supervisorPayload.reason).end();
+    }
+    else {
+        res.status(403).json(supervisorPayload).end();
+    }
+}
+```
+
+## 3. Reporter
+
+### configure
+Use this method to set the configuration parameters of the Reporter.
+
+#### Configuration parameters:
+
+| Name              | Type        | Description          |
+|:----------------- |:----------- |:-------------------- |
+| autoReport        | `boolean`   | In case of `true`, all API calls will be reported one by one, else the developer can aggregate multiple API calls in one report (default = true). |
+| aggregate         | `boolean`   | Aggregate multiple measures in one report, this aggregated measures will be frequently sended based on the `aggregationPeriod` (default = false). *This features is disabled if the autoReport = false*. |
+| aggregationPeriod | `double`    | All requests during this period will be aggregated in one report. It is calculated in milliseconds. |
+| cluster           | `string`    | The cluster that process this API. |
+| environment       | `string`    | The deploying environment (devel, qa, or production). |
+
+**Example:**
+
+```
+var options = {
+	autoReport: true,
+	aggregate: true,
+	aggregationPeriod: 100,
+	cluster: 'cl1.acme.com',
+    environment: 'qa'
+};
+
+slaManager.reporter.configure(options);
+```
+
+### reportMetrics
+In case of `autoReport=false`, the developer will have the responsibility to call this method to report the aggregated metrics.
+
+**Example:**
+
+```
+slaManager.reporter.reportMetrics();
+```
+
+### setMetric
+At any stage of the api logic, the developer can set a custom metric by simply passing its name and value.
+
+**Example:**
+
+```
+slaManager.reporter.setMetric(req, 'animalTypes', records.length);
+```
+
+### preCalculateMetrics
+This method enables the developer to set the metrics that need to be calculated **before** the API logic.
+
+**Example:**
+
+```
+slaManager.reporter.preCalculateMetrics = function(requestedMetrics, req, next) {
+    req.sla.metrics['x-origin'] = req.headers['origin'];
+    next();
+};
+```
+
+### postCalculateMetrics
+This method enables the developer to set the metrics that need to be calculated **after** the API logic.
+
+**Example:**
+
+```
+slaManager.reporter.postCalculateMetrics = function(requestedMetrics, req, res, next) {
+    req.sla.metrics['x-animalType'] = getAnimalTypes(res.Body);
+    next();
+};
+```
+
+## Predefined metrics
+
+- **responseTime**: The API processing time.
+- **requestBody**: The body of the request.
+- **responseHeaders**: The headers of the request.
+- **responseBody**: The body of the response.
+- **userAgent**: Some information about the browser and operating system of the API consumer.
