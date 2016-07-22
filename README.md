@@ -3,8 +3,8 @@
 
 **SLA4OAI** is [Express](http://expressjs.com/)-compatible SLA Checking and Monitoring middleware for [Node.js](http://nodejs.org/).
 
-**SLA4OAI** is based on [SLA for Open API Initiative Specification](https://bitbucket.org/sla4oai/sla4aoi-spec/src/ae4fc1de50f6a2d32d059bb605779b309d1decec/SLA4OAI-spec.md?fileviewer=file-view-default).
-And follows the [Basic SLA Managment Service](https://bitbucket.org/sla4oai/sla4aoi-spec/src/ae4fc1de50f6a2d32d059bb605779b309d1decec/operationalServices.md?fileviewer=file-view-default) proposal.
+**SLA4OAI** is based on [SLA for Open API Initiative Specification](https://github.com/isa-group/SLA4OAI-Specification/blob/master/README.md).
+And follows the [Basic SLA Managment Service](https://github.com/isa-group/SLA4OAI-Specification/blob/master/operationalServices.md) proposal.
 
 ## Install
 
