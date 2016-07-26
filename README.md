@@ -265,3 +265,16 @@ slaManager.reporter.postCalculateMetrics = function(requestedMetrics, req, res, 
 - **responseHeaders**: The headers of the request.
 - **responseBody**: The body of the response.
 - **userAgent**: Some information about the browser and operating system of the API consumer.
+
+## 4. Winston
+
+**SLA4OAI** uses [Winston](https://github.com/winstonjs/winston) to log all SLA connection activities.
+You can customize the Winston logging behaviour by accessing `slaManager.winston` object.
+
+**Example:**
+In the following example we change the logging from the Console to the file system: 
+
+```
+slaManager.winston.add(slaManager.winston.transports.File, { filename: 'somefile.log' });
+slaManager.winston.remove(slaManager.winston.transports.Console);
+```
