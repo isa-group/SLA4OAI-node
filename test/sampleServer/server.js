@@ -97,6 +97,9 @@ slaManager.reporter.postCalculateMetrics = function (requestedMetrics, req, res,
     next();
 };
 
+slaManager.winston.add(slaManager.winston.transports.File, { filename: 'somefile.log' });
+slaManager.winston.remove(slaManager.winston.transports.Console);
+
 */
 
 app.get('/pets', function (req, res) {
