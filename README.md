@@ -187,6 +187,19 @@ slaManager.bouncer.decline = function(req, res, next, supervisorPayload) {
 }
 ```
 
+### resolveMetrics
+In order to resolve the required metrics for the check API, you need to define `resolveMetrics` function and return all metrics in single object.
+
+**Example:**
+
+```
+slaManager.bouncer.resolveMetrics = function (requestedMetrics, req) {
+    return {
+        nameLegth: 12
+    };
+};
+```
+
 ## 3. Reporter
 
 ### configure
