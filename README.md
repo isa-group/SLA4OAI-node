@@ -158,13 +158,20 @@ slaManager.bouncer.configure(options);
 ```
 
 ### needChecking
-By default all incoming requests are verified by SLA Check, but you can customize this behaviour and specify which requests need checking.
+By default all incoming requests are verified by SLA Check, but you can customize this behaviour and specify which requests need checking in both bouncer and scopeResolver components.
 
 **Example:**
 
 ```
 slaManager.bouncer.needChecking = function(req) {
-    if (startsWith(req.originalUrl, '/api/')) {    
+    if (req.originalUrl.startsWith('/api/')) {
+        return true;
+    }
+    return false;
+}
+
+slaManager.scopeResolver.needChecking = function(req) {
+     if (req.originalUrl.startsWith('/api/')) {
         return true;
     }
     return false;
