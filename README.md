@@ -4,7 +4,7 @@
 **SLA4OAI** is [Express](http://expressjs.com/)-compatible SLA Checking and Monitoring middleware for [Node.js](http://nodejs.org/).
 
 **SLA4OAI** is based on [SLA for Open API Initiative Specification](https://github.com/isa-group/SLA4OAI-Specification/blob/master/README.md).
-And follows the [Basic SLA Managment Service](https://github.com/isa-group/SLA4OAI-Specification/blob/master/operationalServices.md) proposal.
+And follows the [Basic SLA Management Service](https://github.com/isa-group/SLA4OAI-Specification/blob/master/operationalServices.md) proposal.
 
 ## Install
 
@@ -40,8 +40,8 @@ Register all library components as express middlewares. Called once when the ser
 | Name                 | Type                                                    | Description                     |
 |:-------------------- |:------------------------------------------------------- |:------------------------------- |
 | app                  | `Express`                                               | **Required** - The express app. |
-| supervisorConnection | [`ConnectionObject`](#markdown-header-connectionobject) | **Required** - The connection details of the Supervisor. |
-| monitorConnection    | [`ConnectionObject`](#markdown-header-connectionobject) | **Optional** - The connection details of the Monitor. In case of missing, the [Reporter](#markdown-header-3-reporter) component will be disabled. |
+| supervisorConnection | [`ConnectionObject`](#connectionobject) | **Required** - The connection details of the Supervisor. |
+| monitorConnection    | [`ConnectionObject`](#connectionobject) | **Optional** - The connection details of the Monitor. In case of missing, the [Reporter](#3-reporter) component will be disabled. |
 
 #### ConnectionObject:
 
@@ -76,10 +76,10 @@ Use this method to set the configuration parameters of the Scope Resolver.
 
 | Name                 | Type                                                                  | Description          |
 |:-------------------- |:--------------------------------------------------------------------- |:-------------------- |
-| defaultOAuthProvider | `string`                                                              | The default provider when **aouthprovider** is missing in the request header. |
-| config               | [`<provider, OauthConfigObject>`](#markdown-header-oauthconfigobject) | Oauth provider configurations. |
+| defaultOAuthProvider | `string`                                                              | The default provider when **oauthprovider** is missing in the request header. |
+| config               | [`<provider, OAuthConfigObject>`](#oauthconfigobject) | OAuth provider configurations. |
 
-#### OauthConfigObject:
+#### OAuthConfigObject:
 
 | Name         | Type          | Description          |
 |:------------ |:------------- |:-------------------- |
@@ -158,7 +158,7 @@ slaManager.bouncer.configure(options);
 ```
 
 ### needChecking
-By default all incoming requests are verified by SLA Check, but you can customize this behaviour and specify which requests need checking in both bouncer and scopeResolver components.
+By default, all incoming requests are verified by SLA Check, but you can customize this behaviour and specify which requests need checking in both bouncer and scopeResolver components.
 
 **Example:**
 
@@ -179,7 +179,7 @@ slaManager.scopeResolver.needChecking = function(req) {
 ```
 
 ### decline
-By default, bouncer declines all not accepted requested with status code `403` and the body that cames from the Supervisor. But you can customize the decline response message.
+By default, bouncer declines all not accepted requested with status code `403` and the body that comes from the Supervisor. But you can customize the decline response message.
 
 **Example:**
 
@@ -246,7 +246,7 @@ slaManager.reporter.reportMetrics();
 ```
 
 ### setMetric
-At any stage of the api logic, the developer can set a custom metric by simply passing its name and value.
+At any stage of the API logic, the developer can set a custom metric by simply passing its name and value.
 
 **Example:**
 
