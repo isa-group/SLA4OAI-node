@@ -42,6 +42,16 @@ Register all library components as express middlewares. Called once when the ser
 | app                  | `Express`                                               | **Required** - The express app. |
 | supervisorConnection | [`ConnectionObject`](#connectionobject) | **Required** - The connection details of the Supervisor. |
 | monitorConnection    | [`ConnectionObject`](#connectionobject) | **Optional** - The connection details of the Monitor. In case of missing, the [Reporter](#3-reporter) component will be disabled. |
+| sla4oaiUIredirectOptions  | [`sla4oaiUIredirectOptions`](#sla4oaiuiredirectoptions) | **Optional** - The options for plans UI redirection. In case of missing, the [sla4oaiUIredirect](#4-sla4oaiuiredirect) component will be disabled. |
+
+#### Sla4oaiUIredirectOptions:
+
+| Name                 | Type             | Description           |
+|:-------------------- |:---------------- |:--------------------- |
+| path                 | `string`         | **Optional** Path on middleware will be allocated.  `/plans` by default.|
+| portalSuccessRedirect  | `string`        | **Required** URL where UI will redirect when result is successful. |
+| plansURL             | `string`         | **Required** URL where plans.yaml document is store. |
+| portalURL             | `string`         | **Required** URL where UI is servered. |
 
 #### ConnectionObject:
 
@@ -286,7 +296,25 @@ slaManager.reporter.postCalculateMetrics = function(requestedMetrics, req, res, 
 - **responseBody**: The body of the response.
 - **userAgent**: Some information about the browser and operating system of the API consumer.
 
-## 4. Winston
+## 4. Sla4oaiUIredirect
+This middleware does a HTTP redirection to an plans UI where `plans.yaml` document is represented on an user interface way.
+You can set up this middleware if you pass sla4oaiUIredirectOptions to the `.register()` function.
+
+**Example**
+
+```javascript
+
+var sla4oaiUIredirectOptions =  {
+    portalSuccessRedirect: "http://localhost:" + port + "/pets",
+    plansURL: "https://localhost/statics/plans/petstore-plans.yaml",
+    portalURL: "http://portal.oai.governify.io/oai/#/portal"
+}
+
+slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiUIredirectOptions);
+
+```
+
+## 5. Winston
 
 **SLA4OAI** uses [Winston](https://github.com/winstonjs/winston) to log all SLA connection activities.
 You can customize the Winston logging behaviour by accessing `slaManager.winston` object.

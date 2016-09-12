@@ -15,4 +15,7 @@ describe('sla4oai package', function () {
     it('SlaManager should expose "reporter"', function () {
         expect(slaManager.reporter).to.be.an('object');
     });
+    it('SlaManager should expose "sla4oaiUIredirect"', function () {
+        expect(slaManager.sla4oaiUIredirect).to.be.an('object');
+    });
 });
