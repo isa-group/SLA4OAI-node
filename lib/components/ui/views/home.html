@@ -1,0 +1,35 @@
+<section class="container">
+    <div class="row">
+        <div class="col s12">
+            <div class="col l12 m12 s12 card-panel hoverable">
+                <h5 class="center-align  grey lighten-3" style="color:#000 !important">Portal Generator</h5>
+                <form class="col s12" ng-submit="onSubmitConfig()">
+                    <div class="row">
+
+                        <div class="input-field col l6 m12 s12">
+                            <i class="material-icons prefix">id </i> 
+                            <input id="plansUrl" type="text" autofocus=true 
+                                   ng-model="plans" class="validate"> 
+                            <label for="configUrl">Plans URL</label>
+                        </div>
+                        
+                        <div class="input-field col l6 m12 s12">
+                            <i class="material-icons prefix">id </i> 
+                            <input id="redirectUrl" type="text" 
+                                   ng-model="redirect" class="validate"> 
+                            <label for="configUrl">Redirect URL</label>
+                        </div>
+
+                        <div class="input-field col l3 m12 s12 center">
+                            <button class="btn waves-effect waves-light blue darken-3 btn wow fadeInUp" 
+                                    type="submit" name="action">
+                                GENERATE <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

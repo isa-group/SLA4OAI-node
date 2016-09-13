@@ -1,0 +1,16 @@
+<!-- FORM TO BUY A PLAN -->
+<form id="ag-container" ng-if="plansUrl">
+    <div >
+        <plan-renderer
+            plans="plansUrl" view-url="'/plans/oai/design-files/plans.ang'"
+            ctl-url="'/plans/oai/design-files/plans.ctl'" >
+        </plan-renderer>
+    </div>
+</form>
+<!-- End form -->
+
+<!--
+ng-repeat="obj in portalConfig.plan.content"
+
+ctl-url="obj.ctlURL" customizable="obj.customizable"
+            datastore="portalConfig.datastore" paypal="portalConfig.paypal.account"-->
