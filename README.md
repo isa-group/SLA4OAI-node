@@ -42,16 +42,28 @@ Register all library components as express middlewares. Called once when the ser
 | app                  | `Express`                                               | **Required** - The express app. |
 | supervisorConnection | [`ConnectionObject`](#connectionobject) | **Required** - The connection details of the Supervisor. |
 | monitorConnection    | [`ConnectionObject`](#connectionobject) | **Optional** - The connection details of the Monitor. In case of missing, the [Reporter](#3-reporter) component will be disabled. |
-| sla4oaiUIredirectOptions  | [`sla4oaiUIredirectOptions`](#sla4oaiuiredirectoptions) | **Optional** - The options for plans UI redirection. In case of missing, the [sla4oaiUIredirect](#4-sla4oaiuiredirect) component will be disabled. |
+| sla4oaiUIOptions  | [`sla4oaiUIOptions`](#sla4oaiuioptions) | **Optional** - The options for plans UI generation. In case of missing, the [sla4oaiUI](#4-sla4oaiui) component will be disabled. |
 
-#### Sla4oaiUIredirectOptions:
+#### Sla4oaiUIOptions:
 
 | Name                 | Type             | Description           |
 |:-------------------- |:---------------- |:--------------------- |
 | path                 | `string`         | **Optional** Path on middleware will be allocated.  `/plans` by default.|
-| portalSuccessRedirect  | `string`        | **Required** URL where UI will redirect when result is successful. |
-| plansURL             | `string`         | **Required** URL where plans.yaml document is store. |
-| portalURL             | `string`         | **Required** URL where UI is servered. |
+| portalSuccessRedirect  | `string`        | **Optional** URL where UI will redirect when result is successful. `/docs` by default. |
+| url             | `string`         | **Required** URL where plans.yaml document is store. You must use `__dirname` node utility.|
+| portalURL             | `string`         | **Optional** In case you have a own portal that is served in other server, URL where UI is served. |
+
+**Example:**
+
+```javascript
+var app = express();
+
+var sla4oaiUIOptions = {
+    url: __dirname + '/plans.yaml'
+};
+
+slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiUIOptions);
+```
 
 #### ConnectionObject:
 
@@ -296,21 +308,21 @@ slaManager.reporter.postCalculateMetrics = function(requestedMetrics, req, res, 
 - **responseBody**: The body of the response.
 - **userAgent**: Some information about the browser and operating system of the API consumer.
 
-## 4. Sla4oaiUIredirect
-This middleware does a HTTP redirection to an plans UI where `plans.yaml` document is represented on an user interface way.
-You can set up this middleware if you pass sla4oaiUIredirectOptions to the `.register()` function.
+## 4. Sla4oaiUI
+This component makes UI where `plans.yaml` document is represented on an user interface way.
+You can set up this component if you pass sla4oaiUIOptions to the `.register()` function.
 
 **Example**
 
 ```javascript
 
-var sla4oaiUIredirectOptions =  {
-    portalSuccessRedirect: "http://localhost:" + port + "/pets",
-    plansURL: "https://localhost/statics/plans/petstore-plans.yaml",
-    portalURL: "http://portal.oai.governify.io/oai/#/portal"
+var sla4oaiUIOptions =  {
+    url: __dirname + '/plans.yaml',
+    portalSuccessRedirect: '/pets',
+    path: '/plans'
 }
 
-slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiUIredirectOptions);
+slaManager.register(app, sConnection, mConnection, sla4oaiUIOptions);
 
 ```
 
