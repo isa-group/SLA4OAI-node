@@ -62,13 +62,12 @@ var reporterOptions = {
     environment: 'qa'
 };
 
-var sla4oaiUIredirectOptions =  {
-    portalSuccessRedirect: "http://localhost:" + port + "/pets",
-    plansURL: "https://designer.governify.io:10843/DemoMaster/sla4oaiDemo/sla4oai/petstore-plans.oai-at?accessToken=962b9d32-c615-498b-91d7-9e374d3a94d4",
-    portalURL: "http://portal.oai.governify.io/oai/#/portal"
+var sla4oaiDoc =  {
+    url: __dirname + "/petstore-plans.yaml",
+    portalSuccessRedirect: "/pets"
 }
 
-slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiUIredirectOptions);
+slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiDoc);
 
 slaManager.scopeResolver.configure(scopeResolverOptions);
 
