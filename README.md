@@ -98,6 +98,7 @@ Use this method to set the configuration parameters of the Scope Resolver.
 
 | Name                 | Type                                                                  | Description          |
 |:-------------------- |:--------------------------------------------------------------------- |:-------------------- |
+| notCheckByDefault | `string`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
 | defaultOAuthProvider | `string`                                                              | The default provider when **oauthprovider** is missing in the request header. |
 | config               | [`<provider, OAuthConfigObject>`](#oauthconfigobject) | OAuth provider configurations. |
 
@@ -169,7 +170,7 @@ Use this method to set the configuration parameters of the Bouncer.
 | Name            | Type        | Description          |
 |:--------------- |:----------- |:-------------------- |
 | environment     | `string`    | The deploying environment (devel, qa, or production). |
-
+| notCheckByDefault | `string`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
 **Example:**
 
 ```
