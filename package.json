@@ -1,19 +1,19 @@
 {
-  "name": "sla4oai",
-  "version": "0.0.1",
+  "name": "sla4oai-tools",
+  "version": "1.0.0",
   "description": "SLA for Open API Initiative Library",
   "keywords": [
     "oai",
     "sla",
     "swagger"
   ],
-  "homepage": "https://bitbucket.org/sla4oai/sla4oai-lib",
+  "homepage": "https://github.com/isa-group/SLA4OAI-node",
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:sla4oai/sla4oai-lib.git"
+    "url": "https://github.com/isa-group/SLA4OAI-node"
   },
   "bugs": {
-    "url": "https://bitbucket.org/sla4oai/sla4oai-lib/issues"
+    "url": "https://github.com/isa-group/SLA4OAI-node/issues"
   },
   "license": "MIT",
   "licenses": [
