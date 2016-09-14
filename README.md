@@ -9,7 +9,7 @@ And follows the [Basic SLA Management Service](https://github.com/isa-group/SLA4
 ## Install
 
 ```
-$ npm install sla4aoi
+$ npm install sla4oai
 ```
 
 ## Basic Usage
