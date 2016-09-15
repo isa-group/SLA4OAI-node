@@ -32,7 +32,7 @@
         padding: 0px 29px;
         transition: all 0.3s ease-out 0s;
     }/*#A_1*/
-    
+
     #buyBtn:after {
         box-sizing: border-box;
         color: rgb(255, 255, 255);
@@ -49,7 +49,7 @@
         font: normal normal normal normal 14.5px / 36px Roboto, sans-serif;
         outline: rgb(255, 255, 255) none 0px;
     }/*#A_1:after*/
-    
+
     #buyBtn:before {
         box-sizing: border-box;
         color: rgb(255, 255, 255);
@@ -66,29 +66,29 @@
         font: normal normal normal normal 14.5px / 36px Roboto, sans-serif;
         outline: rgb(255, 255, 255) none 0px;
     }/*#A_1:before*/
-    
+
     b.title {
         font-size: 17px;
     }
-    
+
     .period {
         font-size: 11px;
         position: relative;
         top: -4px;
     }
-    
+
     .tElements{
         text-align:left;
         padding:2.5px 0px;
     }
     .tElementL{
-        width:50%;display: 
-        inline-block; 
+        width:50%;display:
+        inline-block;
         text-align:right;
     }
     .tElementR{
         width:40%;
-        display: inline-block; 
+        display: inline-block;
         text-align:left;
     }
 
@@ -112,7 +112,7 @@
                         </li>
                         <li ng-init="mergeq=mergeQuotas(model, 'free')">
                             <div  ng-repeat="(path, p) in mergeq" style="padding: 0px 0px 20px 0px;">
-                                <b class="title">{{path.split("/")[1] | uppercase}}</b>  
+                                <b class="title">{{path.split("/").pop() | uppercase}}</b>
                                 <ul style="">
                                     <div ng-repeat="(operation,op) in p">
                                         <div ng-repeat="(metric,m) in op">
@@ -123,14 +123,14 @@
                                         </div>
                                     </div>
                                 </ul>
-                            </div> 
+                            </div>
                         </li>
                         <li>
                             <h6 class="" style="padding: 1.00rem 0rem; font-size: 17px;color:#F7F7F7!important;" >Rates</h6>
                         </li>
                         <li ng-init="merger=mergeRates(model, 'free')">
                             <div ng-repeat="(path, p) in merger" style="padding: 0px 0px 20px 0px;">
-                                <b class="title">{{path.split("/")[1] | uppercase}}</b>  
+                                <b class="title">{{path.split("/").pop() | uppercase}}</b>
                                 <ul style="">
                                     <div ng-repeat="(operation,op) in p">
                                         <div ng-repeat="(metric,m) in op">
@@ -141,7 +141,7 @@
                                         </div>
                                     </div>
                                 </ul>
-                            </div> 
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -149,7 +149,7 @@
                     <h5>{{k | uppercase}}</h5>
                     <div class="card-panel grey lighten-5 hoverable" style="padding: 0px">
                         <h4 class="center-align grey lighten-5" style="color:#000; padding: 1.50rem 1.50rem;margin-bottom: -15px;" >
-                            <span ng-if="!key.pricing">{{model.pricing.cost}}</span>  
+                            <span ng-if="!key.pricing">{{model.pricing.cost}}</span>
                             <span ng-if="key.pricing">{{key.pricing.cost}}</span>
                             <span style="font-size: 13px; position: relative; top:-12px;">€ / month</span>
                         </h4>
@@ -159,7 +159,7 @@
                             </li>
                             <li ng-init="mergeq=mergeQuotas(model, k)" class="">
                                 <div ng-repeat="(path, p) in mergeq " style="padding: 0px 0px 20px 0px;">
-                                    <b class="title" style="height:20px; display:inline-block"></b>  
+                                    <b class="title" style="height:20px; display:inline-block"></b>
                                     <ul style="">
                                         <div ng-repeat="(operation,op) in p">
                                             <div ng-repeat="(metric,m) in op">
@@ -170,14 +170,14 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </div> 
+                                </div>
                             </li>
                             <li>
                               <h6 class="center-align grey lighten-3" style="padding: 1.00rem 1.00rem; font-size: 17px;" >Rates</h6>
                             </li>
                             <li ng-init="merger=mergeRates(model, k)">
                                 <div ng-repeat="(path, p) in merger" style="text-align:center;padding: 0px 0px 20px 0px;">
-                                    <b class="title" style="height:20px; display:inline-block"></b> 
+                                    <b class="title" style="height:20px; display:inline-block"></b>
                                     <ul style="">
                                         <div ng-repeat="(operation,op) in p">
                                             <div ng-repeat="(metric,m) in op">
@@ -188,7 +188,7 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </div> 
+                                </div>
                             </li>
                            <!-- <li>
                               <h6 class="left-align grey lighten-3" style="padding: 1.00rem 1.00rem; font-size: 17px;" >Guarantees</h6>
@@ -203,10 +203,10 @@
                                             </div>
                                         </div>
                                     </ul>
-                                </div> 
+                                </div>
                             </li>-->
                             <li>
-                                <h6 class="center-align  blue darken-3  white-text " style="padding: 1.00rem 1.00rem; font-size: 17px;cursor:pointer" 
+                                <h6 class="center-align  blue darken-3  white-text " style="padding: 1.00rem 1.00rem; font-size: 17px;cursor:pointer"
                                     ng-click="buy(k, key.pricing ? key.pricing.cost : model.pricing.cost , model, 'petstore-sample')">
                                     {{ key.pricing ? (key.pricing.cost ? 'BUY' : 'GET APIKEY') : (model.pricing.cost ? 'BUY' : 'GET APIKEY') }}
                                 </h6>
