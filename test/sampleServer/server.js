@@ -4,21 +4,20 @@ var bodyParser = require('body-parser');
 var slaManager = require('../../lib');
 
 var app = express();
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 
 var port = 3000;
-var pets = [
-    {
-        name: 'Buddy',
-        tag: 'dog'
-    },
-    {
-        name: 'Daisy',
-        tag: 'cat'
-    }
-];
+var pets = [{
+    name: 'Buddy',
+    tag: 'dog'
+}, {
+    name: 'Daisy',
+    tag: 'cat'
+}];
 
 var supervisorConnection = {
     url: 'http://supervisor.oai.governify.io/api/v1'
@@ -62,12 +61,22 @@ var reporterOptions = {
     environment: 'qa'
 };
 
-var sla4oaiDoc =  {
-    url: __dirname + "/petstore-plans.yaml",
-    portalSuccessRedirect: "/pets"
+var configObj = {
+    sla4oai: __dirname + "/petstore-plans.yaml",
+    sla4oaiUI: {
+        path: "/plans",
+        portalSuccessRedirect: "/pets",
+        portalUrl: null
+    },
+    supervisorConnection: {
+        url: 'http://supervisor.oai.governify.io/api/v2'
+    },
+    monitorConnection: {
+        url: 'http://monitor.oai.governify.io/api/v1'
+    }
 }
 
-slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiDoc);
+slaManager.initialize(app, configObj);
 
 slaManager.scopeResolver.configure(scopeResolverOptions);
 

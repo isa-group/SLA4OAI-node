@@ -2,33 +2,26 @@
 
 var slaManager = require('..');
 var mockExpressApp = {
-    use: function () { }
+    use: function () {}
 };
 describe('SlaManager', function () {
-    describe('#register', function () {
+    describe('#initialize', function () {
         describe('Validate parameters', function () {
             it('should throw if lacking express app parameter', function () {
                 expect(function () {
-                    slaManager.register();
+                    slaManager.initialize();
                 }).to.throw(Error, 'Missing parameter: app (Express)');
             });
-            it('should throw if lacking supervisorConnection parameter', function () {
+            it('should throw if lacking configObj parameter', function () {
                 expect(function () {
-                    slaManager.register(mockExpressApp);
-                }).to.throw(Error, 'Missing parameter: supervisorConnection (Object)');
+                    slaManager.initialize(mockExpressApp);
+                }).to.throw(Error, 'Missing parameter: configObj (Object)');
             });
-            it('should throw if missing url in supervisorConnection parameter', function () {
+            it('should throw if missing sla4oaiDoc url in configObj parameter', function () {
                 expect(function () {
-                    var supervisorConnection = {};
-                    slaManager.register(mockExpressApp, supervisorConnection);
-                }).to.throw(Error, 'Invalid supervisorConnection, missing url property');
-            });
-            it('should throw if missing url in monitorConnection parameter', function () {
-                expect(function () {
-                    var supervisorConnection = { url: 'url' };
-                    var monitorConnection = {};
-                    slaManager.register(mockExpressApp, supervisorConnection, monitorConnection);
-                }).to.throw(Error, 'Invalid monitorConnection, missing url property');
+                    var configObj = {};
+                    slaManager.initialize(mockExpressApp, configObj);
+                }).to.throw(Error, 'Missing parameter: configObj.sla4oai (String)');
             });
         });
 
@@ -38,53 +31,60 @@ describe('SlaManager', function () {
                 slaManager.scopeResolver._app = undefined;
                 slaManager.scopeResolver._connection = undefined;
 
-                var supervisorConnection = { url: 'url' };
-                slaManager.register(mockExpressApp, supervisorConnection);
+                var configObj = {
+                    sla4oai: __dirname + "/sampleServer/petstore-plans.yaml"
+                };
+                slaManager.initialize(mockExpressApp, configObj);
 
                 expect(slaManager.scopeResolver._app).to.equal(mockExpressApp);
-                expect(slaManager.scopeResolver._connection).to.equal(supervisorConnection);
+                expect(slaManager.scopeResolver._connection).to.eql({
+                    url: 'http://supervisor.oai.governify.io/api/v2',
+                    service: 'petstore-sample'
+                });
             });
             it('bouncer is initialized', function () {
                 // Reset
                 slaManager.bouncer._app = undefined;
                 slaManager.bouncer._connection = undefined;
 
-                var supervisorConnection = { url: 'url' };
-                slaManager.register(mockExpressApp, supervisorConnection);
+                var configObj = {
+                    sla4oai: __dirname + "/sampleServer/petstore-plans.yaml"
+                };
+                slaManager.initialize(mockExpressApp, configObj);
 
                 expect(slaManager.bouncer._app).to.equal(mockExpressApp);
-                expect(slaManager.bouncer._connection).to.equal(supervisorConnection);
-            });
-            it('reporter is not initialized when monitorConnection parameter missing', function () {
-                // Reset
-                slaManager.reporter._app = undefined;
-                slaManager.reporter._connection = undefined;
-
-                var supervisorConnection = { url: 'url1' };
-                slaManager.register(mockExpressApp, supervisorConnection);
-
-                expect(slaManager.reporter._app).to.be.undefined;
-                expect(slaManager.reporter._connection).to.be.undefined;
+                expect(slaManager.bouncer._connection).to.eql({
+                    url: 'http://supervisor.oai.governify.io/api/v2',
+                    service: 'petstore-sample'
+                });
             });
             it('reporter is initialized when monitorConnection parameter present', function () {
                 // Reset
                 slaManager.reporter._app = undefined;
                 slaManager.reporter._connection = undefined;
 
-                var supervisorConnection = { url: 'url1' };
-                var monitorConnection = { url: 'url2' };
-                slaManager.register(mockExpressApp, supervisorConnection, monitorConnection);
+                var configObj = {
+                    sla4oai: __dirname + "/sampleServer/petstore-plans.yaml"
+                };
+                slaManager.initialize(mockExpressApp, configObj);
 
                 expect(slaManager.reporter._app).to.equal(mockExpressApp);
-                expect(slaManager.reporter._connection).to.equal(monitorConnection);
+                expect(slaManager.reporter._connection).to.eql({
+                    url: 'http://monitor.oai.governify.io/api/v1'
+                });
             });
         });
         describe('Return value', function () {
-            it('should return SlaManager for chaining', function () {
-                var supervisorConnection = { url: 'url' };
-                var returnValue = slaManager.register(mockExpressApp, supervisorConnection);
-
-                expect(returnValue).to.equal(slaManager);
+            it('should return SlaManager for chaining', function (done) {
+                var configObj = {
+                    sla4oai: __dirname + "/sampleServer/petstore-plans.yaml"
+                };
+                var returnValue = null;
+                slaManager.initialize(mockExpressApp, configObj, (value) => {
+                    returnValue = value;
+                    expect(returnValue).to.equal(slaManager);
+                    done();
+                });
             });
         });
     });
