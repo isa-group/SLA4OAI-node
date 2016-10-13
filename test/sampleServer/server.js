@@ -63,11 +63,6 @@ var reporterOptions = {
 
 var configObj = {
     sla4oai: __dirname + "/petstore-plans.yaml",
-    sla4oaiUI: {
-        path: "/plans",
-        portalSuccessRedirect: "/pets",
-        portalUrl: null
-    },
     supervisorConnection: {
         url: 'http://supervisor.oai.governify.io/api/v2'
     },

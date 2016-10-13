@@ -15,78 +15,74 @@ $ npm install sla4oai-tools
 ## Basic Usage
 You can simply use the library by registering it with the Express app and backend connections for Supervisor & Monitor:
 
-```
+```javascript
 var app = express();
 
-var supervisorConnection = {
-    url: 'http://supervisor.oai.governify.io/api/v1'
+var configObj = {
+    sla4oai: __dirname + "/petstore-plans.yaml"
 };
 
-var monitorConnection = {
-    url: 'http://monitor.oai.governify.io/api/v1'
-};
-
-slaManager.register(app, supervisorConnection, monitorConnection);
+slaManager.initialize(app, configObj);
 ```
 
 ## API Reference
 ## 1. SlaManager
 
-### register
-Register all library components as express middlewares. Called once when the server getting up.
+### initialize
+Initialize all library components as express middlewares. Called once when the server getting up.
 
 #### Parameters:
 
 | Name                 | Type                                                    | Description                     |
 |:-------------------- |:------------------------------------------------------- |:------------------------------- |
 | app                  | `Express`                                               | **Required** - The express app. |
-| supervisorConnection | [`ConnectionObject`](#connectionobject) | **Required** - The connection details of the Supervisor. |
-| monitorConnection    | [`ConnectionObject`](#connectionobject) | **Optional** - The connection details of the Monitor. In case of missing, the [Reporter](#3-reporter) component will be disabled. |
-| sla4oaiUIOptions  | [`sla4oaiUIOptions`](#sla4oaiuioptions) | **Optional** - The options for plans UI generation. In case of missing, the [sla4oaiUI](#4-sla4oaiui) component will be disabled. |
+| configObj | [`ConfigurationObject`](#configurationObject) | **Required** - The configuration details for each components. |
+
+
+#### ConfigurationObject:
+
+| Name                 | Type             | Description           |
+|:-------------------- |:---------------- |:--------------------- |
+| sla4oai                 | `string`         | **Required** The URL or file path to the sla4oai document|
+| sla4oaiUI  | [`Sla4oaiUIObject`](#sla4oaiUIObject)       | **Optional** Object which contains the Sla4oaiUI component configuration |
+| supervisorConnection  | [`ConnectionObject`](#connectionObject) | **Optional** The connection details for Supervisor and ScopeResolver. By default it get the connection from Sla4oai document|
+| monitorConnection |  [`ConnectionObject`](#connectionObject)      | **Optional** The connection details for Monitor component. By default it get the connection from Sla4oai document|
+
+#### ConnectionObject:
+
+| Name                 | Type             | Description           |
+|:-------------------- |:---------------- |:--------------------- |
+| url                 | `string`         | Host url.             |
 
 #### Sla4oaiUIOptions:
 
 | Name                 | Type             | Description           |
 |:-------------------- |:---------------- |:--------------------- |
-| path                 | `string`         | **Optional** Path on middleware will be allocated.  `/plans` by default.|
+| path                 | `string`         | **Optional**  Middleware will be allocated on this path.  By default `/plans`.|
 | portalSuccessRedirect  | `string`        | **Optional** URL where UI will redirect when result is successful. `/docs` by default. |
-| url             | `string`         | **Required** URL where plans.yaml document is store. You must use `__dirname` node utility.|
-| portalURL             | `string`         | **Optional** In case you have a own portal that is served in other server, URL where UI is served. |
+| portalURL             | `string`         | **Optional** In case you have a own portal that is served in other server, URL where portal is served. |
 
 **Example:**
 
 ```javascript
 var app = express();
 
-var sla4oaiUIOptions = {
-    url: __dirname + '/plans.yaml'
-};
+var configObj = {
+    sla4oai: __dirname + "/petstore-plans.yaml",
+    sla4oaiUI: {
+        path: "/plans",
+        portalSuccessRedirect: "/pets",
+        portalUrl: null
+    },
+    supervisorConnection: {
+        url: 'http://supervisor.oai.governify.io/api/v2'
+    },
+    monitorConnection: {
+        url: 'http://monitor.oai.governify.io/api/v1'
+    }
+}
 
-slaManager.register(app, supervisorConnection, monitorConnection, sla4oaiUIOptions);
-```
-
-#### ConnectionObject:
-
-| Name                 | Type             | Description           |
-|:-------------------- |:---------------- |:--------------------- |
-| host                 | `string`         | Host url.             |
-| port                 | `integer`        | Port number.          |
-| username             | `string`         | Credentials username. |
-| password             | `string`         | Credentials password. |
-
-**Example:**
-
-```
-var app = express();
-
-var supervisorConnection = {
-    url: 'http://supervisor.oai.governify.io/api/v1',
-    port: 80,
-    username: 'marck',
-	password: 'm4321'
-};
-
-slaManager.register(app, supervisorConnection);
+slaManager.initialize(app, configObj);
 ```
 
 ## 2. Scope Resolver
@@ -98,7 +94,7 @@ Use this method to set the configuration parameters of the Scope Resolver.
 
 | Name                 | Type                                                                  | Description          |
 |:-------------------- |:--------------------------------------------------------------------- |:-------------------- |
-| notCheckByDefault | `string`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
+| notCheckByDefault | `boolean`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
 | defaultOAuthProvider | `string`                                                              | The default provider when **oauthprovider** is missing in the request header. |
 | config               | [`<provider, OAuthConfigObject>`](#oauthconfigobject) | OAuth provider configurations. |
 
@@ -170,7 +166,7 @@ Use this method to set the configuration parameters of the Bouncer.
 | Name            | Type        | Description          |
 |:--------------- |:----------- |:-------------------- |
 | environment     | `string`    | The deploying environment (devel, qa, or production). |
-| notCheckByDefault | `string`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
+| notCheckByDefault | `boolean`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
 **Example:**
 
 ```
@@ -317,13 +313,15 @@ You can set up this component if you pass sla4oaiUIOptions to the `.register()` 
 
 ```javascript
 
-var sla4oaiUIOptions =  {
-    url: __dirname + '/plans.yaml',
-    portalSuccessRedirect: '/pets',
-    path: '/plans'
+var configObj = {
+    sla4oai: __dirname + "/petstore-plans.yaml",
+    sla4oaiUI: {
+        portalSuccessRedirect: "/pets"
+    }
 }
 
-slaManager.register(app, sConnection, mConnection, sla4oaiUIOptions);
+
+slaManager.initialize(app,configObj);
 
 ```
 
