@@ -68,14 +68,35 @@ var configObj = {
     },
     monitorConnection: {
         url: 'http://monitor.oai.governify.io/api/v1'
+    },
+    sla4oaiUI: {
+        portalSuccessRedirect: "/pets"
     }
 }
 
-slaManager.initialize(app, configObj);
+slaManager.initialize(app, configObj, () => {
+    slaManager.scopeResolver.configure(scopeResolverOptions);
 
-slaManager.scopeResolver.configure(scopeResolverOptions);
+    slaManager.reporter.configure(reporterOptions);
 
-slaManager.reporter.configure(reporterOptions);
+
+    app.get('/pets', function (req, res) {
+        slaManager.reporter.setMetric(req, "animalTypes", pets.length);
+        res.status(200).json(pets);
+    });
+
+    app.post('/pets', function (req, res) {
+        res.status(200).json(pets);
+        //slaManager.reporter.reportMetrics();
+    });
+
+    app.listen(port, function () {
+        console.log('Sample app listening on port 3000!');
+    });
+
+});
+
+
 
 
 /*
@@ -111,17 +132,3 @@ slaManager.winston.add(slaManager.winston.transports.File, { filename: 'somefile
 slaManager.winston.remove(slaManager.winston.transports.Console);
 
 */
-
-app.get('/pets', function (req, res) {
-    slaManager.reporter.setMetric(req, "animalTypes", pets.length);
-    res.status(200).json(pets);
-});
-
-app.post('/pets', function (req, res) {
-    res.status(200).json(pets);
-    //slaManager.reporter.reportMetrics();
-});
-
-app.listen(port, function () {
-    console.log('Sample app listening on port 3000!');
-});
