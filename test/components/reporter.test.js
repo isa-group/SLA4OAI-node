@@ -1,6 +1,8 @@
 /* global describe, it, expect */
 var chai = require('chai');
-var reporter = require('../../lib').reporter;
+var sla4oaiTools = require('../../lib');
+var slaManager = new sla4oaiTools();
+var reporter = slaManager.reporter;
 
 describe('reporter', function () {
     describe('#configure', function () {
@@ -43,6 +45,7 @@ describe('reporter', function () {
                         metrics: []
                     };
                     req.headers = [];
+                    req.slaManager = slaManager;
                 })
                 .next(function (err) {
                     error = err;
@@ -93,6 +96,7 @@ describe('reporter', function () {
                     req.body = {
                         'id': 1
                     };
+                    req.slaManager = slaManager;
                     request = req;
                 })
                 .res(function (res) {

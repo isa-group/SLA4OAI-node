@@ -2,7 +2,9 @@
 var chai = require('chai');
 var assert = chai.assert;
 var express = require('express');
-var sla4oaiUI = require('../../lib').sla4oaiUI;
+var sla4oaiTools = require('../../lib');
+var slaManager = new sla4oaiTools();
+var sla4oaiUI = slaManager.sla4oaiUI;
 
 describe('sla4oaiUI', function () {
     describe('#Init middleware', function () {
@@ -25,9 +27,9 @@ describe('sla4oaiUI', function () {
 
         it('app parameter is not parsed', function () {
 
-            assert.throw( () => {
+            assert.throw(() => {
 
-              sla4oaiUI.init();
+                sla4oaiUI.init();
 
             }, Error, "Missing parameter: app (Express)");
 
@@ -35,9 +37,9 @@ describe('sla4oaiUI', function () {
 
         it('options parameter is not parsed', function () {
 
-            assert.throw( () => {
+            assert.throw(() => {
 
-              sla4oaiUI.init(express());
+                sla4oaiUI.init(express());
 
             }, Error, "Missing parameter: options (Object)");
 
@@ -45,13 +47,13 @@ describe('sla4oaiUI', function () {
 
         it('options url parameter is not parsed', function () {
 
-            assert.throw( () => {
+            assert.throw(() => {
 
-              sla4oaiUI.init(express(), {
-                  path: "/plans",
-                  portalSuccessRedirect: "http://petstore.services.oai.governify.io/pets",
-                  portalURL: "http://portal.oai.governify.io/oai/#/portal"
-              });
+                sla4oaiUI.init(express(), {
+                    path: "/plans",
+                    portalSuccessRedirect: "http://petstore.services.oai.governify.io/pets",
+                    portalURL: "http://portal.oai.governify.io/oai/#/portal"
+                });
 
             }, Error, "Missing options: options.url (String)");
 
@@ -61,7 +63,7 @@ describe('sla4oaiUI', function () {
 
     describe('#run middleware', function () {
         var response;
-        sla4oaiUI.init(express(),{
+        sla4oaiUI.init(express(), {
             path: "/plans",
             portalSuccessRedirect: "http://petstore.services.oai.governify.io/pets",
             url: "http://petstore.services.oai.governify.io/statics/plans/plans.yaml",
@@ -70,6 +72,7 @@ describe('sla4oaiUI', function () {
         before(function (done) {
             chai.connect.use(sla4oaiUI._middleware)
                 .req(function (req) {
+                    req.slaManager = slaManager;
                 })
                 .end(function (res) {
                     response = res;
@@ -80,7 +83,7 @@ describe('sla4oaiUI', function () {
         it('Return 300 redirect', function () {
             expect(response.statusCode).to.equal(300);
             expect(response._headers["location"]).to.equal(sla4oaiUI._options.portalURL + "?plans=" +
-                    sla4oaiUI._options.url + "&redirect=" + sla4oaiUI._options.portalSuccessRedirect);
+                sla4oaiUI._options.url + "&redirect=" + sla4oaiUI._options.portalSuccessRedirect);
         });
     });
 });

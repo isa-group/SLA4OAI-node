@@ -1,7 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 
-var slaManager = require('../../lib');
+var sla4oaiTools = require('../../lib');
+var slaManager = new sla4oaiTools();
 
 var app = express();
 app.use(bodyParser.urlencoded({

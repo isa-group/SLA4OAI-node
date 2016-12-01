@@ -5,8 +5,8 @@ context:
   api: ./petstore-service.yml
   provider: ISAGroup
 infrastructure:
-  supervisor: 'http://localhost:5000/api/v2'
-  monitor: 'http://localhost:5030/api/v1'
+  supervisor: 'http://supervisor.oai.governify.io/api/v2'
+  monitor: 'http://monitor.oai.governify.io/api/v1'
 metrics:
   animalTypes:
     type: integer

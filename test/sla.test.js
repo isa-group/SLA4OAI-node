@@ -1,6 +1,8 @@
 /* global describe, it, expect */
 
-var slaManager = require('..');
+var sla4oaiTools = require('..');
+var slaManager = new sla4oaiTools();
+
 var mockExpressApp = {
     use: function () {}
 };

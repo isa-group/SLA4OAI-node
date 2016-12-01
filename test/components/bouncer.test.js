@@ -1,6 +1,8 @@
 /* global describe, it, expect */
 var chai = require('chai');
-var bouncer = require('../../lib').bouncer;
+var sla4oaiTools = require('../../lib');
+var slaManager = new sla4oaiTools();
+var bouncer = slaManager.bouncer;
 
 describe('bouncer', function () {
     describe('#configure', function () {
@@ -36,7 +38,9 @@ describe('bouncer', function () {
             bouncer._environment = environment;
             bouncer.check = function (body, callback) {
                 requestBody = body;
-                callback(null, { accept: body.sla === 'pro_petstore_YMkddfs' });
+                callback(null, {
+                    accept: body.sla === 'pro_petstore_YMkddfs'
+                });
             };
             done();
         });
@@ -46,6 +50,7 @@ describe('bouncer', function () {
                     .req(function (req) {
                         req.query = {};
                         req.sla = sla;
+                        req.slaManager = slaManager;
                     })
                     .next(function (err) {
                         error = err;
@@ -72,6 +77,7 @@ describe('bouncer', function () {
                         req.query = {};
                         req.sla = sla;
                         req.sla.agreement = 'xx-Invalid Agreement-xx';
+                        req.slaManager = slaManager;
                     })
                     .next(function (err) {
                         error = err;

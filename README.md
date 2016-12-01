@@ -13,9 +13,11 @@ $ npm install sla4oai-tools
 ```
 
 ## Basic Usage
-You can simply use the library by registering it with the Express app and backend connections for Supervisor & Monitor:
+You can simply use the library by registering it with the Express app with your plans file as local:
 
 ```javascript
+var sla4oaiTools = require('sla4oai-tools'); //import
+var slaManager = new sla4oaiTools(); //create a instance of slaManager
 var app = express();
 
 var configObj = {
@@ -65,6 +67,8 @@ Initialize all library components as express middlewares. Called once when the s
 **Example:**
 
 ```javascript
+var sla4oaiTools = require('sla4oai-tools'); //import
+var slaManager = new sla4oaiTools(); //create a instance of slaManager
 var app = express();
 
 var configObj = {
@@ -307,7 +311,6 @@ slaManager.reporter.postCalculateMetrics = function(requestedMetrics, req, res, 
 
 ## 4. Sla4oaiUI
 This component makes UI where `plans.yaml` document is represented on an user interface way.
-You can set up this component if you pass sla4oaiUIOptions to the `.register()` function.
 
 **Example**
 

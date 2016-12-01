@@ -1,6 +1,8 @@
 /* global describe, it, expect */
 var chai = require('chai');
-var scopeResolver = require('../../lib').scopeResolver;
+var sla4oaiTools = require('../../lib');
+var slaManager = new sla4oaiTools();
+var scopeResolver = slaManager.scopeResolver;
 var SlaError = require('../../lib/errors/slaerror');
 
 describe('scopeResolver', function () {
@@ -29,6 +31,7 @@ describe('scopeResolver', function () {
             chai.connect.use(scopeResolver._middleware)
                 .req(function (req) {
                     req.query = {};
+                    req.slaManager = slaManager;
                 })
                 .next(function (err) {
                     error = err;
@@ -67,7 +70,10 @@ describe('scopeResolver', function () {
             chai.connect.use(scopeResolver._middleware)
                 .req(function (req) {
                     req.sla = {};
-                    req.query = { apikey: apikey };
+                    req.query = {
+                        apikey: apikey
+                    };
+                    req.slaManager = slaManager;
                     request = req;
                 })
                 .next(function (err) {
@@ -109,8 +115,7 @@ describe('scopeResolver', function () {
             scopeResolver.getAccountName = function (oauthProvider, token, callback) {
                 if (token === actualToken) {
                     callback(null, email);
-                }
-                else {
+                } else {
                     return callback(new SlaError('Invalid token'));
                 }
 
@@ -132,6 +137,7 @@ describe('scopeResolver', function () {
                         req.headers = {
                             authorization: 'Bearer ' + 'xx-invalid token-xx'
                         };
+                        req.slaManager = slaManager;
                         request2 = req;
                     })
                     .next(function (err) {
@@ -155,6 +161,7 @@ describe('scopeResolver', function () {
                         req.headers = {
                             authorization: 'Bearer ' + actualToken
                         };
+                        req.slaManager = slaManager;
                         request2 = req;
                     })
                     .next(function (err) {
