@@ -8,8 +8,8 @@ And follows the [Basic SLA Management Service](https://github.com/isa-group/SLA4
 
 ## Install
 
-```
-$ npm install sla4oai-tools
+```javascript
+$ npm install sla4oai-tools --save
 ```
 
 ## Basic Usage
@@ -24,7 +24,14 @@ var configObj = {
     sla4oai: __dirname + "/petstore-plans.yaml"
 };
 
-slaManager.initialize(app, configObj);
+slaManager.initialize(app, configObj, function(slaManager, error){
+    //any callback actions
+    if(!error){
+        app.listen(9000);
+    }else{
+        console.log(error.toString());
+    }
+});
 ```
 
 ## API Reference
@@ -39,7 +46,7 @@ Initialize all library components as express middlewares. Called once when the s
 |:-------------------- |:------------------------------------------------------- |:------------------------------- |
 | app                  | `Express`                                               | **Required** - The express app. |
 | configObj | [`ConfigurationObject`](#configurationObject) | **Required** - The configuration details for each components. |
-
+| callback | `Function` | **Required** - The callback function to be execute, it will recive two parameters: `slaManager` for post-configuration and `error` if it exists. |
 
 #### ConfigurationObject:
 
@@ -86,7 +93,14 @@ var configObj = {
     }
 }
 
-slaManager.initialize(app, configObj);
+slaManager.initialize(app, configObj, function(slaManager, error){
+    //any callback actions
+    if(!error){
+        app.listen(9000);
+    }else{
+        console.log(error.toString());
+    }
+});
 ```
 
 ## 2. Scope Resolver
@@ -112,7 +126,7 @@ Use this method to set the configuration parameters of the Scope Resolver.
 
 **Example:**
 
-```
+```javascript
 var options = {
 	defaultOAuthProvider: 'google',
     config: {
@@ -131,7 +145,7 @@ Use this method to get the account name from the OAuth provider by the specified
 
 **Example:**
 
-```
+```javascript
 slaManager.scopeResolver.getAccountName(oauthProvider, token, function (err, accountName) {
     // get accountName
 });
@@ -142,7 +156,7 @@ Using this method to get the scope object from the supervisor by the specifying 
 
 **Example:**
 
-```
+```javascript
 slaManager.scopeResolver.getAccountScope('apikey', 'NbfiS7wjwjwb=', function (err, result) {
 	// get result.scope
 });
@@ -173,7 +187,7 @@ Use this method to set the configuration parameters of the Bouncer.
 | notCheckByDefault | `boolean`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
 **Example:**
 
-```
+```javascript
 var options = {
 	environment: 'qa'
 };
@@ -185,7 +199,7 @@ By default, all incoming requests are verified by SLA Check, but you can customi
 
 **Example:**
 
-```
+```javascript
 slaManager.bouncer.needChecking = function(req) {
     if (req.originalUrl.startsWith('/api/')) {
         return true;
@@ -206,7 +220,7 @@ By default, bouncer declines all not accepted requested with status code `403` a
 
 **Example:**
 
-```
+```javascript
 slaManager.bouncer.decline = function(req, res, next, supervisorPayload) {
     if(supervisorPayload.reason === 'Too many requests') {
         res.status(429).json(supervisorPayload.reason).end();
@@ -222,7 +236,7 @@ In order to resolve the required metrics for the check API, you need to define `
 
 **Example:**
 
-```
+```javascript
 slaManager.bouncer.resolveMetrics = function (requestedMetrics, req) {
     return {
         nameLegth: 12
@@ -247,7 +261,7 @@ Use this method to set the configuration parameters of the Reporter.
 
 **Example:**
 
-```
+```javascript
 var options = {
 	autoReport: true,
 	aggregate: true,
@@ -264,7 +278,7 @@ In case of `autoReport=false`, the developer will have the responsibility to cal
 
 **Example:**
 
-```
+```javascript
 slaManager.reporter.reportMetrics();
 ```
 
@@ -273,7 +287,7 @@ At any stage of the API logic, the developer can set a custom metric by simply p
 
 **Example:**
 
-```
+```javascript
 slaManager.reporter.setMetric(req, 'animalTypes', records.length);
 ```
 
@@ -282,7 +296,7 @@ This method enables the developer to set the metrics that need to be calculated 
 
 **Example:**
 
-```
+```javascript
 slaManager.reporter.preCalculateMetrics = function(requestedMetrics, req, next) {
     req.sla.metrics['x-origin'] = req.headers['origin'];
     next();
@@ -294,7 +308,7 @@ This method enables the developer to set the metrics that need to be calculated 
 
 **Example:**
 
-```
+```javascript
 slaManager.reporter.postCalculateMetrics = function(requestedMetrics, req, res, next) {
     req.sla.metrics['x-animalType'] = getAnimalTypes(res.Body);
     next();
@@ -324,7 +338,14 @@ var configObj = {
 }
 
 
-slaManager.initialize(app,configObj);
+slaManager.initialize(app, configObj, function(slaManager, error){
+    //any callback actions
+    if(!error){
+        app.listen(9000);
+    }else{
+        console.log(error.toString());
+    }
+});
 
 ```
 
