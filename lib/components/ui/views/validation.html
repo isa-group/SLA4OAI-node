@@ -5,13 +5,16 @@
                 <h5 class="center-align grey lighten-3 " style="color:#000 !important">Plan has been registered</h5>
                 <p ng-if="successOperation == true" style="text-align:center;">
                     Thank you! Your operation has finished succcessfully.</p>
-                    <p style="text-align:center;">Your operational APIkey is: <b>{{apikey}}</b> </p>
+                <p style="text-align:center;">Your operational APIkey is:
+                    <b>{{apikey}}</b>
+                </p>
                 <p ng-if="successOperation == false" style="text-align:center;">
                     Unable to finish the operation.
                 </p>
                 <p style="text-align: center;">
-                    <button ng-if="redirect" class="btn waves-effect waves-light blue darken-2 btn wow fadeInUp" type="submit" name="action" ng-click="goToPreviousApp()">
-                        RETURN TO API DOCUMENTATION 
+                    <button ng-if="redirect" class="btn waves-effect waves-light blue darken-2 btn wow fadeInUp" type="submit" name="action"
+                        ng-click="goToPreviousApp()">
+                        RETURN TO API DOCUMENTATION
                     </button>
                     <button ng-if="!apikey" class="btn waves-effect waves-light blue darken-2 btn wow fadeInUp" type="submit" name="action" ng-click="goPortal()">
                         GO TO PORTAL

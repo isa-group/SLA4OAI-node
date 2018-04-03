@@ -42,34 +42,34 @@ Initialize all library components as express middlewares. Called once when the s
 
 #### Parameters:
 
-| Name                 | Type                                                    | Description                     |
-|:-------------------- |:------------------------------------------------------- |:------------------------------- |
-| app                  | `Express`                                               | **Required** - The express app. |
-| configObj | [`ConfigurationObject`](#configurationObject) | **Required** - The configuration details for each components. |
-| callback | `Function` | **Required** - The callback function to be execute, it will recive two parameters: `slaManager` for post-configuration and `error` if it exists. |
+| Name      | Type                                          | Description                                                                                                                                      |
+| :-------- | :-------------------------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------- |
+| app       | `Express`                                     | **Required** - The express app.                                                                                                                  |
+| configObj | [`ConfigurationObject`](#configurationObject) | **Required** - The configuration details for each components.                                                                                    |
+| callback  | `Function`                                    | **Required** - The callback function to be execute, it will recive two parameters: `slaManager` for post-configuration and `error` if it exists. |
 
 #### ConfigurationObject:
 
-| Name                 | Type             | Description           |
-|:-------------------- |:---------------- |:--------------------- |
-| sla4oai                 | `string`         | **Required** The URL or file path to the sla4oai document|
-| sla4oaiUI  | [`Sla4oaiUIObject`](#sla4oaiUIObject)       | **Optional** Object which contains the Sla4oaiUI component configuration |
-| supervisorConnection  | [`ConnectionObject`](#connectionObject) | **Optional** The connection details for Supervisor and ScopeResolver. By default it get the connection from Sla4oai document|
-| monitorConnection |  [`ConnectionObject`](#connectionObject)      | **Optional** The connection details for Monitor component. By default it get the connection from Sla4oai document|
+| Name                 | Type                                    | Description                                                                                                                  |
+| :------------------- | :-------------------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| sla4oai              | `string`                                | **Required** The URL or file path to the sla4oai document                                                                    |
+| sla4oaiUI            | [`Sla4oaiUIObject`](#sla4oaiUIObject)   | **Optional** Object which contains the Sla4oaiUI component configuration                                                     |
+| supervisorConnection | [`ConnectionObject`](#connectionObject) | **Optional** The connection details for Supervisor and ScopeResolver. By default it get the connection from Sla4oai document |
+| monitorConnection    | [`ConnectionObject`](#connectionObject) | **Optional** The connection details for Monitor component. By default it get the connection from Sla4oai document            |
 
 #### ConnectionObject:
 
-| Name                 | Type             | Description           |
-|:-------------------- |:---------------- |:--------------------- |
-| url                 | `string`         | Host url.             |
+| Name | Type     | Description |
+| :--- | :------- | :---------- |
+| url  | `string` | Host url.   |
 
 #### Sla4oaiUIOptions:
 
-| Name                 | Type             | Description           |
-|:-------------------- |:---------------- |:--------------------- |
-| path                 | `string`         | **Optional**  Middleware will be allocated on this path.  By default `/plans`.|
-| portalSuccessRedirect  | `string`        | **Optional** URL where UI will redirect when result is successful. `/docs` by default. |
-| portalURL             | `string`         | **Optional** In case you have a own portal that is served in other server, URL where portal is served. |
+| Name                  | Type     | Description                                                                                            |
+| :-------------------- | :------- | :----------------------------------------------------------------------------------------------------- |
+| path                  | `string` | **Optional**  Middleware will be allocated on this path.  By default `/plans`.                         |
+| portalSuccessRedirect | `string` | **Optional** URL where UI will redirect when result is successful. `/docs` by default.                 |
+| portalURL             | `string` | **Optional** In case you have a own portal that is served in other server, URL where portal is served. |
 
 **Example:**
 
@@ -110,19 +110,19 @@ Use this method to set the configuration parameters of the Scope Resolver.
 
 #### Configuration parameters:
 
-| Name                 | Type                                                                  | Description          |
-|:-------------------- |:--------------------------------------------------------------------- |:-------------------- |
-| notCheckByDefault | `boolean`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
-| defaultOAuthProvider | `string`                                                              | The default provider when **oauthprovider** is missing in the request header. |
-| config               | [`<provider, OAuthConfigObject>`](#oauthconfigobject) | OAuth provider configurations. |
+| Name                 | Type                                                  | Description                                                                                                         |
+| :------------------- | :---------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------ |
+| notCheckByDefault    | `boolean`                                             | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
+| defaultOAuthProvider | `string`                                              | The default provider when **oauthprovider** is missing in the request header.                                       |
+| config               | [`<provider, OAuthConfigObject>`](#oauthconfigobject) | OAuth provider configurations.                                                                                      |
 
 #### OAuthConfigObject:
 
-| Name         | Type          | Description          |
-|:------------ |:------------- |:-------------------- |
-| clientId     | `string`      | The provider application id. |
-| clientSecret | `string`      | The provider application secret. |
-| callbackURL  | `string`      | The callback registered in the provider application. |
+| Name         | Type     | Description                                          |
+| :----------- | :------- | :--------------------------------------------------- |
+| clientId     | `string` | The provider application id.                         |
+| clientSecret | `string` | The provider application secret.                     |
+| callbackURL  | `string` | The callback registered in the provider application. |
 
 **Example:**
 
@@ -181,10 +181,10 @@ Use this method to set the configuration parameters of the Bouncer.
 
 #### Configuration parameters:
 
-| Name            | Type        | Description          |
-|:--------------- |:----------- |:-------------------- |
-| environment     | `string`    | The deploying environment (devel, qa, or production). |
-| notCheckByDefault | `boolean`                                                              | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
+| Name              | Type      | Description                                                                                                         |
+| :---------------- | :-------- | :------------------------------------------------------------------------------------------------------------------ |
+| environment       | `string`  | The deploying environment (devel, qa, or production).                                                               |
+| notCheckByDefault | `boolean` | Decides if it uses a list of default paths that don't need checking. By default `true` and `["/docs", "/api-docs"]` |
 **Example:**
 
 ```javascript
@@ -251,13 +251,13 @@ Use this method to set the configuration parameters of the Reporter.
 
 #### Configuration parameters:
 
-| Name              | Type        | Description          |
-|:----------------- |:----------- |:-------------------- |
-| autoReport        | `boolean`   | In case of `true`, all API calls will be reported one by one, else the developer can aggregate multiple API calls in one report (default = true). |
-| aggregate         | `boolean`   | Aggregate multiple measures in one report, this aggregated measures will be frequently sended based on the `aggregationPeriod` (default = false). *This features is disabled if the autoReport = false*. |
-| aggregationPeriod | `double`    | All requests during this period will be aggregated in one report. It is calculated in milliseconds. |
-| cluster           | `string`    | The cluster that process this API. |
-| environment       | `string`    | The deploying environment (devel, qa, or production). |
+| Name              | Type      | Description                                                                                                                                                                                              |
+| :---------------- | :-------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| autoReport        | `boolean` | In case of `true`, all API calls will be reported one by one, else the developer can aggregate multiple API calls in one report (default = true).                                                        |
+| aggregate         | `boolean` | Aggregate multiple measures in one report, this aggregated measures will be frequently sended based on the `aggregationPeriod` (default = false). *This features is disabled if the autoReport = false*. |
+| aggregationPeriod | `double`  | All requests during this period will be aggregated in one report. It is calculated in milliseconds.                                                                                                      |
+| cluster           | `string`  | The cluster that process this API.                                                                                                                                                                       |
+| environment       | `string`  | The deploying environment (devel, qa, or production).                                                                                                                                                    |
 
 **Example:**
 

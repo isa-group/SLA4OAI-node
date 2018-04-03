@@ -4,7 +4,7 @@ var sla4oaiTools = require('..');
 var slaManager = new sla4oaiTools();
 
 var mockExpressApp = {
-    use: function () {}
+    use: function () { }
 };
 describe('SlaManager', function () {
     describe('#initialize', function () {

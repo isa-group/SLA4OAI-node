@@ -1,53 +1,57 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="Sla4oaiUI">
-        <meta name="keywords" content="SLA, ISA Group">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-        <meta name="author" content="ISA Group">
-        <!--<meta name="theme-color" content="#104899">-->
-        <title>SLA4OAI UI</title>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
-        <link rel="stylesheet" href="css/style.min.css" type="text/css" media="screen,projection">
 
-    </head>
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="Sla4oaiUI">
+    <meta name="keywords" content="SLA, ISA Group">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="ISA Group">
+    <!--<meta name="theme-color" content="#104899">-->
+    <title>SLA4OAI UI</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+    <link rel="stylesheet" href="css/style.min.css" type="text/css" media="screen,projection">
 
-    <body ng-app="portalApp">
+</head>
 
-        <div id="errors" ui-view="errors"></div>
-        <div class="container" ui-view="content"></div>
+<body ng-app="portalApp">
 
-        <!-- Generic modal -->
-        <div id="genericModal" class="modal">
-            <div class="modal-content">
-                <h4></h4>
-                <p></p>
-            </div>
-            <div class="modal-footer row">
-                <div class="col l12 m12 s12">
+    <div id="errors" ui-view="errors"></div>
+    <div class="container" ui-view="content"></div>
 
-                    <a id="buyPaypal"><img src="../img/buy-logo-medium.png" alt="Buy now with PayPal" /></a>
-                    <a id="buyFree" class=" waves-effect waves-light blue darken-3 btn wow fadeInUp">FREE</a>
-                </div>
+    <!-- Generic modal -->
+    <div id="genericModal" class="modal">
+        <div class="modal-content">
+            <h4></h4>
+            <p></p>
+        </div>
+        <div class="modal-footer row">
+            <div class="col l12 m12 s12">
+
+                <a id="buyPaypal">
+                    <img src="../img/buy-logo-medium.png" alt="Buy now with PayPal" />
+                </a>
+                <a id="buyFree" class=" waves-effect waves-light blue darken-3 btn wow fadeInUp">FREE</a>
             </div>
         </div>
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.min.js"></script>
-        <script src="/plans/oai/js/js-yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0/angular-resource.min.js"></script>
+    <script src="/plans/oai/js/js-yaml.min.js"></script>
 
 
-        <script src="app.js"></script>
-        <script src="controllers/homeController.js"></script>
-        <script src="controllers/portalController.js"></script>
-        <script src="controllers/validationController.js"></script>
-        <script src="directives/planRendererDirective.js"></script>
+    <script src="app.js"></script>
+    <script src="controllers/homeController.js"></script>
+    <script src="controllers/portalController.js"></script>
+    <script src="controllers/validationController.js"></script>
+    <script src="directives/planRendererDirective.js"></script>
 
-    </body>
+</body>
+
 </html>

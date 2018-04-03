@@ -1,16 +1,16 @@
-@media only screen and (min-width: 993px){
+@media only screen and (min-width: 993px) {
     .container {
         width: 90%;
     }
 }
 
-@media only screen and (min-width: 601px){
+@media only screen and (min-width: 601px) {
     .container {
         width: 90%;
     }
 }
 
-body{
+body {
     background-color: #F7F7F7!important;
 }
 
@@ -28,7 +28,7 @@ input:not([type]):focus:not([readonly])+label, input[type=text]:focus:not([reado
     color: #1E88E5;
 }
 
-[type="radio"]:checked+label:after{
+[type="radio"]:checked+label:after {
     border: 2px solid #1E88E5;
     background-color: #1E88E5;
 }
@@ -54,17 +54,18 @@ input:not([type]):focus:not([readonly])+label, input[type=text]:focus:not([reado
     color: #fff;
 }
 
-.buy-now{
+.buy-now {
     width: 100%;
 }
 
-.toast{
+.toast {
     background-color: rgba(30, 136, 229, 1);
 }
 
 #buyFree {
     display: none;
 }
+
 #buyPaypal {
     margin-left: 0.5rem !important;
     cursor: pointer;
